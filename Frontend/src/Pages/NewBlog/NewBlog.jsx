@@ -1,6 +1,6 @@
 import React from 'react'
 import '/src/assets/Styles/NewBlog.scss'
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { newSchema } from '../../utils/formSchema/blogValidationSchema';
 import ReactQuill from 'react-quill';
@@ -31,8 +31,22 @@ const NewBlog = () => {
                 <div className="input_group">
                     <label htmlFor="">Blog content</label>
                     {/* <textarea className="input" placeholder='Content' rows={18} {...register('content')} /> */}
-                    <ReactQuill {...register('content')} placeholder="Write something..." />
-                    {errors && errors['content'] && <span className="error pl_10">{errors['content'].message}</span>}
+                    {/* <ReactQuill {...register('content')} placeholder="Write something..." /> */}
+                    <Controller
+                        name="content"
+                        control={control}
+                        render={({ field }) => (
+                            <>
+                                <ReactQuill
+                                    theme="snow"
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                />
+                                {errors && errors['content'] && <span className="error pl_10">{errors['content'].message}</span>}
+                            </>
+                        )}
+                    />
+                    {/* {errors && errors['content'] && <span className="error pl_10">{errors['content'].message}</span>} */}
                 </div>
                 <div className="input_group">
                     <label className='image_upload_label' htmlFor="image_upload">Image</label>

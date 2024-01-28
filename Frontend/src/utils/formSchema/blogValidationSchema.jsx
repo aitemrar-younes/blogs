@@ -2,11 +2,12 @@ import * as yup from 'yup'
 
 export const newSchema = yup.object({
     title:yup.string().required('title est obligatoire').min(3),
-    content:yup.string().required('content est obligatoire').test(
+    content:yup.string().required('content est obligatoire'),
+/*     .test(
         'multiLine',
         'it must have multiple line',
-        (value) => value.split('\n').length > 1
-    ),
+        (value) => { console.log(value); return (value.split('\n').length > 1)}
+    ), */
     image : yup.mixed()
     .required('image est obligatoire')
     .test(
