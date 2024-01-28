@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Poppins:wght@100;200;300;400;500;600;700&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+*, *::before, *::after{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+
+}
+ul, li{
+  list-style: none;
+}
+a{
+  text-decoration: none;
+}
+/* img{
+  width: 100%;
+} */
+
+/* App */
+.__App__{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+.card{
+  background-color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 6px 2px rgba(0, 0, 0, 0.05);
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  @media (max-width: 576px){
+    padding: 0;
+  }
+}
+.container{
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+.search_container{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  
+  @media (max-width: 576px){
+    padding: 0;
+    padding: 15px;
+    margin-bottom: 0;
+  }
+  input{
+    max-width: 500px;
+    width: 100%;
+    padding: 8px 20px;
+    color: #555;
+    font-size: 17px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 100px;
+    outline: none;
+    box-shadow: 0 3px 8px 2px rgba(0, 0, 0, 0.05);
+  }
+}
+.clamp_text_2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-height: 3em; /* Adjust based on your font size and line height */
+}
+.input_group{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+label{
+  color: #555;
+  font-size: 15px;
+  font-weight: 500;
+}
+.input{
+  width: 100%;
+  padding: 5px 12px;
+  border: 1px solid rgba(85, 85, 85, 0.5);
+  border-radius: 5px;
+  outline: none;
+  resize: none;
+}
+.input[type='file']{
+  display: none;
+}
+.image_upload_label{
+  background-color: #fff;
+  padding: 5px 12px;
+  border: 1px solid rgba(85, 85, 85, 0.5);
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn{
+  padding: 5px 12px;
+  border: 1px solid rgba(85, 85, 85, 0.5);
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #555;
+  color: #fff;
+}
+.w_100{
+  width: 100%;
+}
+.pl_10{
+  padding-left: 10px;
+}
+span{
+  font-size: 13px;
+  &.error{
+    color: #ff3232;
+  }
+}
