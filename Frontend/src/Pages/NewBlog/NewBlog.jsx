@@ -18,6 +18,10 @@ const NewBlog = () => {
     })
     const onSubmit = (data) =>{
         console.log(data)
+        const formData = new FormData();
+        formData.append('title', data.title)
+        formData.append('content', data.content)
+        formData.append('thumbnail', data.image)
     }
     
     return (
@@ -50,7 +54,7 @@ const NewBlog = () => {
                 </div>
                 <div className="input_group">
                     <label className='image_upload_label' htmlFor="image_upload">Image</label>
-                    <input id="image_upload" type='file' className="input" {...register('image')} />
+                    <input id="image_upload" type='file' className="input" {...register('image')} accept='image/*' />
                     {errors && errors['image'] && <span className="error pl_10">{errors['image'].message}</span>}
                 </div>
 
