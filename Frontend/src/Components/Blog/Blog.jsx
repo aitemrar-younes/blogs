@@ -8,7 +8,7 @@ const Blog = ({data}) => {
         <div className="blog_detail">
             <div className="card_body">
                 <h3 className="title">{data.title}</h3>
-                <div className="date">March 25, 2023 | Tech</div>
+                <div className="date">{data.creation_date} | Category { (data.creation_date != data.modification_date) ? '( updated at '+data.modification_date+' )' : "" } </div>
                 <p className="description clamp_text_2">
                     {data.content}
                 </p>
@@ -17,7 +17,7 @@ const Blog = ({data}) => {
                 <div className="liked">
                     <span>100 Like(s)</span>
                 </div>
-                <Link to={'/blog-detail'}>
+                <Link to={'/blog/'+data.id+'/'}>
                     <button className="btn read_more">Read more</button>
                 </Link>
             </div>

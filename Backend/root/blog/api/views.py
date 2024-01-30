@@ -1,4 +1,4 @@
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .serializers import BlogSerializer
 from ..models import Blog
 
@@ -13,3 +13,7 @@ class BlogListCreate_GV(ListCreateAPIView):
             serializer.save(thumbnail=image_file)
         else:
             serializer.save()
+
+class BlogDetail_GV(RetrieveUpdateDestroyAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer

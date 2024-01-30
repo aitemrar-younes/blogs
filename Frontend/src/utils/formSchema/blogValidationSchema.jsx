@@ -20,7 +20,7 @@ export const newSchema = yup.object({
         'File size is too large. Maximum size is 5 MB.',
         (value) => !value || (value && value[0]?.size <= 5 * 1024 * 1024)
     )
-    .test(
+    /* .test(
         'isHD',
         'Only HD images are allowed.',
         async (value) =>
@@ -35,7 +35,7 @@ export const newSchema = yup.object({
                 };
                 img.onerror = () => reject(false);
             })))
-    ),
+    ), */
 })
 /* export const accountCreateValidationSchema = yup.object({
     first_name : yup.string().required('"First name" est obligatoire'),

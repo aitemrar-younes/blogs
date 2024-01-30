@@ -41,6 +41,7 @@ export const CUDAPI = async (uri, item, method) => {
   };
   /* --------------------------------- */
 export const CUD_formData_noAuth_API = async (uri, formData, method) => {
+  console.log(formData)
     const response = await fetch(API_URL + uri, {
       method: method, // [ POST, PUT, DELETE ]
       body: formData,

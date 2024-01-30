@@ -5,8 +5,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { newSchema } from '../../utils/formSchema/blogValidationSchema';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // import styles
+import { CreateBlog } from '../../utils/api/blog.api';
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from 'react-router-dom';
 
 const NewBlog = () => {
+    const navigate = useNavigate();
     /* set instance for managing form */
     const {register, handleSubmit, formState:{errors}, control} = useForm({
         resolver: yupResolver(newSchema),
@@ -16,12 +20,26 @@ const NewBlog = () => {
             image:null ,
         }
     })
+    /* Create */
+    //Api mutation
+    const createBlogdMutation = useMutation({
+        mutationFn: CreateBlog,
+        onSuccess: () => {
+            //queryClient.invalidateQueries({ queryKey: ["simCards"] });
+            //setOpenModal(false);
+            navigate('/blog');
+        },
+        onError: (error) => {
+            console.log("error on save");
+        },
+    });
     const onSubmit = (data) =>{
         console.log(data)
         const formData = new FormData();
         formData.append('title', data.title)
         formData.append('content', data.content)
-        formData.append('thumbnail', data.image)
+        formData.append('thumbnail', data.image[0])
+        createBlogdMutation.mutate(formData)
     }
     
     return (

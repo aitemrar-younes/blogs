@@ -37,15 +37,7 @@ const Profile = () => {
         </div>
         <div className="my_blog">
             
-            <Blog src={"/src/assets/Images/3840-2160-sample.webp"} />
-            <Blog src={"/src/assets/Images/icann-internet-nom-de-domaine.jpg"} />
-            <Blog src={"/src/assets/Images/test.webp"} />
-            <Blog src={"/src/assets/Images/WebpFeat.jpg"} />
-
-            <Blog src={"/src/assets/Images/3840-2160-sample.webp"} />
-            <Blog src={"/src/assets/Images/icann-internet-nom-de-domaine.jpg"} />
-            <Blog src={"/src/assets/Images/test.webp"} />
-            <Blog src={"/src/assets/Images/WebpFeat.jpg"} />
+            {/* <Blog src={"/src/assets/Images/3840-2160-sample.webp"} /> */}
         </div>
     </div>
   )
