@@ -22,10 +22,9 @@ function BlogDetail() {
     )
   return (
     <div className='__BlogDetail__'>
+        <h1> { BlogDetailQuery?.data.title } </h1>
+        <span> { BlogDetailQuery?.data.creation_date } by author </span>
         <img src={BlogDetailQuery?.data.thumbnail} alt="" />
-        <h1>
-          { BlogDetailQuery?.data.title }
-        </h1>
         <p dangerouslySetInnerHTML={{ __html: BlogDetailQuery?.data.content }}>
         </p>
     </div>
