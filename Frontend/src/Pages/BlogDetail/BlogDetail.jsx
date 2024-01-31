@@ -33,7 +33,7 @@ function BlogDetail() {
                     <span>Posted on { blog.creation_date }</span>
                 </div>
                 <div className="author_profile">
-                    <span className='author_cred'> Written by <Link to={`/profile/${blog.author.id}/`}> @{ blog.author.first_name + ' '+blog.author.last_name }</Link> </span>
+                    <span> Written by <Link className='author_cred' to={`/profile/${blog.author.id}/`}> @{ blog.author.first_name + ' '+blog.author.last_name }</Link> </span>
                     <Link to={`/profile/${blog.author.id}/`}><img className='author_profile_img' src={ blog.author.profile_picture } alt="profile" /></Link>
                 </div>
             </div>
