@@ -39,6 +39,7 @@ const NewBlog = () => {
         formData.append('title', data.title)
         formData.append('content', data.content)
         formData.append('thumbnail', data.image[0])
+        formData.append('author', '1')
         createBlogdMutation.mutate(formData)
     }
     

@@ -21,6 +21,8 @@
                 overflow: hidden;
                 border-radius: 100%;
                 margin: 15px auto 0;
+                object-fit: cover;
+                object-position: center;
             }
             .Informations_body{
                 padding: 0 15px;

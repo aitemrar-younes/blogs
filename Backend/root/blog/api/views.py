@@ -1,10 +1,14 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from .serializers import BlogSerializer
+from .serializers import BlogSerializer, BlogCreateSerializer
 from ..models import Blog
 
 class BlogListCreate_GV(ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return BlogCreateSerializer
+        return BlogSerializer
     def perform_create(self, serializer):
         print(serializer)
         image_file = self.request.data.get('image')
