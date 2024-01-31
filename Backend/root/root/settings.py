@@ -39,10 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'blog',
+    'account',
+
     'rest_framework',
     'corsheaders',
-    'account'
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +145,11 @@ CORS_ALLOW_METHODS = [
     'DELETE',
     'OPTIONS'
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+}
