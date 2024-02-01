@@ -7,6 +7,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import BlogDetail from './Pages/BlogDetail/BlogDetail'
 import Login from './Pages/Login/Login'
 import { useAuth } from './utils/context/AuthContext.context'
+import NotFound from './Pages/NotFound/NotFound'
 //import { PrivateRoute } from './utils/CustomRoute/CustomRoute.route'
 
 
@@ -22,6 +23,8 @@ function App() {
           <Route path="/blog/new" element={ isAuthenticated ? <NewBlog/> : <Navigate to={'/login'} />} />
           <Route path="/blog/:id" element={<BlogDetail/>} />
           <Route path="/login" element={ isAuthenticated ? <Navigate to={'/blog'}/> : <Login />} />
+          <Route path="/notfound" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/notfound" replace />} />
         </Routes>
       </Content>
     </div>

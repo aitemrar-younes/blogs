@@ -1,3 +1,5 @@
+import { useAuth } from "../context/AuthContext.context";
+
 const API_URL = 'http://127.0.0.1:9001/'
 /* --------------------------------- */
 class CustomError extends Error {
@@ -19,18 +21,25 @@ export async function RetrieveAPI(uri) {
   return response.json();
 }
 /* --------------------------------- */
-export const CUDAPI = async (uri, item, method) => {
-    const authToken = localStorage.getItem("authToken");
-    if (authToken && authToken.length<1)
-        throw new Error("No session...");
+export const CUDAPI = async (uri, data, method) => {
+    console.log('cudapi')
+    const { isAuthenticated, logout } = useAuth();
+    const authToken = localStorage.getItem("token");
+    console.log(authToken)
+    if (!authToken)
+      throw new Error("No session...");
     const response = await fetch(API_URL + uri, {
       method: method, // [ POST, PUT, DELETE ]
       headers: {
         Authorization: `Token ${authToken}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(item),
+      body: data,
     });
+    if ( response.status != 401){
+      logout()
+      //throw new Error("Error while Posting or Updating data in the Endpoint, status : ", response.status);
+    }
     if (!response.ok && response.status != 400)
       throw new Error("Error while Posting or Updating data in the Endpoint, status : ", response.status);
     if (response.status == 400) {

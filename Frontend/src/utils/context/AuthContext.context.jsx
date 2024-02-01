@@ -4,7 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // initialy must be false but for testing it might be set to true
+  const [isAuthenticated, setIsAuthenticated] = useState(true); // initialy must be false but for testing it might be set to true
   const [loading, setLoading] = useState(true);
     /*    
         Here must be a process that checks if there is a token stored in localBrowser and then checks its validity
@@ -13,9 +13,10 @@ export const AuthProvider = ({ children }) => {
     */
 
     useEffect(() => {
-        console.log('useeffect from auth context')
+
         // Check token validity with the server
         const checkTokenValidity = async () => {
+            localStorage.setItem('token','898fcd78f01c12893a9b14fc1f28d2821664a2a4')
             const token = localStorage.getItem('token');
             if (token) {
                 // Send a request to the server to validate the token
