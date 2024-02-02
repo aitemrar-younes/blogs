@@ -8,9 +8,11 @@ import 'react-quill/dist/quill.snow.css'; // import styles
 import { CreateBlog } from '../../utils/api/blog.api';
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../utils/context/AuthContext.context';
 
 const NewBlog = () => {
     const navigate = useNavigate();
+    const { logout } = useAuth();
     /* set instance for managing form */
     const {register, handleSubmit, formState:{errors}, control} = useForm({
         resolver: yupResolver(newSchema),
@@ -30,16 +32,15 @@ const NewBlog = () => {
             navigate('/blog');
         },
         onError: (error) => {
-            console.log("error on save");
+            if (error.status == 401)
+                logout()
         },
     });
     const onSubmit = (data) =>{
-        console.log(data)
         const formData = new FormData();
         formData.append('title', data.title)
         formData.append('content', data.content)
         formData.append('thumbnail', data.image[0])
-        formData.append('author', '1')
         createBlogdMutation.mutate(formData)
     }
     

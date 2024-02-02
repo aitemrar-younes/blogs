@@ -11,4 +11,9 @@ class BlogSerializer(serializers.ModelSerializer):
 class BlogCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
-        fields = '__all__'
+        exclude = ('author',)
+
+    def create(self, validated_data):
+        # Include the authenticated user in the data
+        validated_data['author'] = self.context['request'].user
+        return super().create(validated_data)

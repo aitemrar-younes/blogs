@@ -1,11 +1,11 @@
-// AuthContext.js
 import React, { createContext, useContext, useEffect, useState } from 'react';
-
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true); // initialy must be false but for testing it might be set to true
-  const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // initialy must be false but for testing it might be set to true
+  const [account, setAccount] = useState(null); // it will hold data about the user
+  //const [loading, setLoading] = useState(true);
+
     /*    
         Here must be a process that checks if there is a token stored in localBrowser and then checks its validity
         if so it will set isAuthenticated and add account variable so we dont search again again for user info 
@@ -13,50 +13,55 @@ export const AuthProvider = ({ children }) => {
     */
 
     useEffect(() => {
-
         // Check token validity with the server
         const checkTokenValidity = async () => {
-            localStorage.setItem('token','898fcd78f01c12893a9b14fc1f28d2821664a2a4')
             const token = localStorage.getItem('token');
             if (token) {
                 // Send a request to the server to validate the token
                 try {
-                    // Replace 'YOUR_SERVER_ENDPOINT' with the actual endpoint to validate the token on your server
-                    const response = await fetch('YOUR_SERVER_ENDPOINT/validate-token', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
-                    },
+                    // connect to the server using token and check its validity
+                    // if so store account detail
+                    const API_URL = 'http://127.0.0.1:9001/'
+                    const response = await fetch(API_URL + 'api/account/alive/', {
+                        method: 'GET',
+                        headers: { authorization : `Token ${token}`, }
                     });
-        
-                    if (response.ok) {
-                    setIsAuthenticated(true);
-                    } else {
-                    setIsAuthenticated(false);
+                    if ( response.ok ){
+                        // if response is ok store the account detail
+                        const data = await response.json()
+                        setAccount(data)
+                    }
+                    else{
+                        // otherwise set it to null
+                        setAccount(null)
                     }
                 } catch (error) {
-                    console.error('Error validating token:', error);
-                    setIsAuthenticated(false);
+                    setAccount(null)
+                    // set isAuth to false due to an error not handled
                 } finally {
-                    setLoading(false);
+                    // any way maybe set the loading to false which tells that the process
+                    // has stoped
                 }
             } else {
-                setLoading(false);
+                setAccount(null)
+                // setLoading(false);
             }
         };
     
-        //checkTokenValidity();
-    }, []);
+        checkTokenValidity();
+    }, [isAuthenticated]);
     
-    const login = () => setIsAuthenticated(true);
+    const login = (data) => {
+        localStorage.setItem('token',data)
+        setIsAuthenticated(!isAuthenticated)
+    }
     const logout = () => {
-        setIsAuthenticated(false);
         localStorage.removeItem('token');
+        setIsAuthenticated(!isAuthenticated);
     };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, loading }}>
+    <AuthContext.Provider value={{ login, logout, account, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

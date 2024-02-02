@@ -12,7 +12,7 @@ import NotFound from './Pages/NotFound/NotFound'
 
 
 function App() {
-  const { isAuthenticated } = useAuth();
+  const { account } = useAuth();
   return (
     <div className='__App__'>
       <Navbar />
@@ -20,9 +20,9 @@ function App() {
         <Routes>
           <Route path="/blog" element={<Home/>} />
           <Route path="/profile/:id" element={<Profile/>} />
-          <Route path="/blog/new" element={ isAuthenticated ? <NewBlog/> : <Navigate to={'/login'} />} />
+          <Route path="/blog/new" element={ account ? <NewBlog/> : <Navigate to={'/login'} />} />
           <Route path="/blog/:id" element={<BlogDetail/>} />
-          <Route path="/login" element={ isAuthenticated ? <Navigate to={'/blog'}/> : <Login />} />
+          <Route path="/login" element={ account ? <Navigate to={'/blog'}/> : <Login />} />
           <Route path="/notfound" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/notfound" replace />} />
         </Routes>

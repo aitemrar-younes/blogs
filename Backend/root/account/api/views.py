@@ -35,4 +35,6 @@ def logout_view(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def validate_token(request):
-    return Response({'message': 'Token is valid'}, status=status.HTTP_200_OK)
+    user = request.user
+    serializer = AccountSerializer(user)
+    return Response(serializer.data, status=status.HTTP_200_OK)

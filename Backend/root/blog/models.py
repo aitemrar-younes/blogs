@@ -9,6 +9,12 @@ class Blog(models.Model):
     modification_date = models.DateField(auto_now_add=True)
 
     author = models.ForeignKey(Account, on_delete=models.PROTECT)
+
+    def delete(self, *args, **kwargs):
+        if self.thumbnail:
+            storage, path = self.thumbnail.storage, self.thumbnail.path
+            storage.delete(path)
+        super().delete(*args, **kwargs)
     
     def __str__(self):
         return self.title
