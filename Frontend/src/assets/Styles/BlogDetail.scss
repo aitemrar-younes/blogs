@@ -1,9 +1,13 @@
 .__BlogDetail__{
     .thumbnail{
         width: 100%;
-        height: auto;
+        max-height: 50vh;
+        object-fit: contain;
+        object-position: center;
+        //height: auto;
         border-radius: 5px;
         box-shadow: 3px 3px 16px 4px rgba(0, 0, 0, 0.13);
+        background-color: #ddd;
     }
     .blog_title{
         font-size: 30px;

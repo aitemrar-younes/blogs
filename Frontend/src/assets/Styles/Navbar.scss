@@ -18,10 +18,22 @@
         flex-direction: row;
         gap: 20px;
         .link_item{
+            background-color: transparent;
+            border: none;
             cursor: pointer;
             color: #444;
             font-weight: 400;
             font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .navbar_profile_img{
+            width: 40px;
+            height: 40px;
+            border-radius: 100%;
+            object-fit: cover;
+            object-position: center;
         }
     }
 }

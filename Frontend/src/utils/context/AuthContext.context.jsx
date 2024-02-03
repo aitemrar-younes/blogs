@@ -56,6 +56,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(!isAuthenticated)
     }
     const logout = () => {
+        // i need api call here to delete the token from server also not only in client side
         localStorage.removeItem('token');
         setIsAuthenticated(!isAuthenticated);
     };
