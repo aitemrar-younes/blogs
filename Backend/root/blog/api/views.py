@@ -1,6 +1,12 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .serializers import BlogSerializer, BlogCreateSerializer
-from ..models import Blog
+from ..models import Blog, Like
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+
 
 class BlogListCreate_GV(ListCreateAPIView):
     queryset = Blog.objects.all()
@@ -19,3 +25,20 @@ class BlogListCreate_GV(ListCreateAPIView):
 class BlogDetail_GV(RetrieveUpdateDestroyAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def toggle_like(request, post_id):
+    blog = get_object_or_404(Blog, id=post_id)
+    user = request.user
+
+    try:
+        like = Like.objects.get(user=user, blog=blog)
+        like.delete()
+        liked = False
+    except Like.DoesNotExist:
+        Like.objects.create(user=user, blog=blog)
+        liked = True
+    data = {'liked': liked, } # 'likes_count': blog.like_set.count()
+    return JsonResponse(data)

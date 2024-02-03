@@ -20,3 +20,13 @@ class Blog(models.Model):
         return self.title
     class Meta:
         ordering = ['creation_date', 'modification_date', 'title']
+
+class Like(models.Model):
+    blog = models.ForeignKey(Blog, on_delete= models.PROTECT)
+    user = models.ForeignKey(Account, on_delete = models.PROTECT)
+    
+    class Meta:
+        unique_together = ('user', 'blog')
+
+    def __str__(self):
+        return f"{self.user.username} likes {self.blog.title}"
