@@ -9,6 +9,12 @@ export function ListBlogByAccount(account_id) {
 export function RetrieveBlog(blog_id) {
   return RetrieveAPI(`api/blog/${blog_id}/`)
 }
+export function RetrieveBlogIsLiked(blog_id) {
+  return RetrieveAPI(`api/blog/${blog_id}/like/`, true)
+}
+export function ToggleBlogLike(blog_id) {
+  return CUDAPI(`api/blog/${blog_id}/like/`, null, 'POST')
+}
 export function CreateBlog(formData) {
   return CUDAPI('api/blog/', formData, 'POST')
 }

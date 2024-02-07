@@ -1,9 +1,13 @@
 import CustomError from "../CustomError/CustomError.error";
-const API_URL = 'http://127.0.0.1:9001/'
+//const API_URL = 'http://127.0.0.1:9001/'
+const API_URL = 'http://192.168.1.140:9001/'
 
 /* --------------------------------- */
-export async function RetrieveAPI(uri) {
-    const response = await fetch(API_URL + uri);
+export async function RetrieveAPI(uri, restricted = false) {    
+    const authorization = restricted ? `Token ${localStorage.getItem("token")}` : ''
+    const response = await fetch(API_URL + uri,{
+        headers: { authorization, }
+    });
     if (!response.ok)
         throw new CustomError(
         "Error while fetching the endPoint, status : ",

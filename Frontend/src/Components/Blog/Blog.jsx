@@ -21,7 +21,7 @@ const Blog = ({data}) => {
                 </div>
                 <div className="card_footer">
                     <div className="liked">
-                        <span>100</span>
+                        <span>{ data.likes_count }</span>
                         <FaHeart />
                     </div>
                     <Link to={'/blog/'+data.id+'/'}>

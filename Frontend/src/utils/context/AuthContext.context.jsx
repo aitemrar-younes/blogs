@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const [forceUpdate, setForceUpdate] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false); // initialy must be false but for testing it might be set to true
   const [account, setAccount] = useState(null); // it will hold data about the user
   //const [loading, setLoading] = useState(true);
@@ -30,13 +31,16 @@ export const AuthProvider = ({ children }) => {
                         // if response is ok store the account detail
                         const data = await response.json()
                         setAccount(data)
+                        setIsAuthenticated(true)
                     }
                     else{
                         // otherwise set it to null
                         setAccount(null)
+                        setIsAuthenticated(false)
                     }
                 } catch (error) {
                     setAccount(null)
+                    setIsAuthenticated(false)
                     // set isAuth to false due to an error not handled
                 } finally {
                     // any way maybe set the loading to false which tells that the process
@@ -44,21 +48,24 @@ export const AuthProvider = ({ children }) => {
                 }
             } else {
                 setAccount(null)
+                setIsAuthenticated(false)
                 // setLoading(false);
             }
         };
     
         checkTokenValidity();
-    }, [isAuthenticated]);
+    }, [forceUpdate]);
     
     const login = (data) => {
         localStorage.setItem('token',data)
         setIsAuthenticated(!isAuthenticated)
+        setForceUpdate(!forceUpdate)
     }
     const logout = () => {
         // i need api call here to delete the token from server also not only in client side
         localStorage.removeItem('token');
         setIsAuthenticated(!isAuthenticated);
+        setForceUpdate(!forceUpdate)
     };
 
   return (
