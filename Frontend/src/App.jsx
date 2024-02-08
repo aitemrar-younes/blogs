@@ -22,6 +22,7 @@ function App() {
           <Route path="/profile/:id" element={<Profile/>} />
           <Route path="/blog/new" element={ account ? <NewBlog/> : <Navigate to={'/login'} />} />
           <Route path="/blog/:id" element={<BlogDetail/>} />
+          <Route path="/blog/:id/edit" element={account ? <NewBlog/> : <Navigate to={'/login'} />} />
           <Route path="/login" element={ account ? <Navigate to={'/blog'}/> : <Login />} />
           <Route path="/notfound" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/notfound" replace />} />

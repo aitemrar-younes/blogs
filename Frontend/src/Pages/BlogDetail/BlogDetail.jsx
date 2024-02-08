@@ -79,7 +79,7 @@ function BlogDetail() {
             </Link>
             {
                 account?.id == blog?.author?.id ? (
-                    <Link to='/blog/new'>
+                    <Link to={`/blog/${blog.id}/edit`}>
                         Edité
                     </Link>
                 ):null

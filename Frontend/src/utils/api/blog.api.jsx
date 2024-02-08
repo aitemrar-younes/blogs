@@ -18,3 +18,6 @@ export function ToggleBlogLike(blog_id) {
 export function CreateBlog(formData) {
   return CUDAPI('api/blog/', formData, 'POST')
 }
+export function UpdateBlog(formData) {
+  return CUDAPI(`api/blog/${formData.get('id')}/`, formData, 'PUT')
+}
