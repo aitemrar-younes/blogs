@@ -6,11 +6,17 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
+from rest_framework import filters
+from .filters import BlogPagination
 
 
 class BlogListCreate_GV(ListCreateAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogSerializer
+    pagination_class = BlogPagination
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['title']
+    ordering_fields = ['title', 'authot__first_name']
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return BlogCreateSerializer

@@ -1,7 +1,11 @@
+import { string } from "yup";
 import { RetrieveAPI, CUDAPI } from "./packages.api";
 
-export function ListBlog() {
-  return RetrieveAPI(`api/blog/`)
+export function ListBlog(page=null, search=null) {
+  const request_page = page!=null ? `page=${page}` : ''
+  const request_search = search!=null ? `search=${search}` : ''
+  const request_param =  [request_page, request_search].join('&')
+  return RetrieveAPI(`api/blog/?`+request_param)
 }
 export function ListBlogByAccount(account_id) {
   return RetrieveAPI(`api/account/${account_id}/blogs/`)
