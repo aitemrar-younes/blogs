@@ -90,7 +90,7 @@ function BlogDetail() {
         <p dangerouslySetInnerHTML={{ __html: blog.content }} />
         {isAuthenticated ? (
           <button onClick={() => BlogLikeToggleMutation.mutate(blog_id)}>
-            <FaHeart />
+            { BlogIsLikedQuery?.data?.liked ? <FaHeart /> : <FaRegHeart /> }
           </button>
         ) : (
           <Link to="/login">

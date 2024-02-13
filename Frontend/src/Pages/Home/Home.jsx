@@ -14,17 +14,15 @@ const Home = () => {
 		queryFn: () => ListBlog(page, search),
 	});
 
-  if (BlogListQuery.isLoading)
-    return (<h3>Loading ...</h3>)
   if (BlogListQuery.error)
     return (<h3>Error Occurs !!! {console.log(BlogListQuery.error)} </h3>)
   const response = BlogListQuery?.data
   return (
     <div>
       <div className="search_container">
-        <input type="text" placeholder="Search..." value={search} onChange={(event)=>setSearch(event.target.value)} />
+        <input type="text" placeholder="Search..." value={search} onChange={(event)=>{setSearch(event.target.value);setPage(1)}} />
       </div>
-      {response?.results
+      {!BlogListQuery.isLoading && response?.results
         ? response.results.map((data) => <Blog data={data} key={data.id} />)
         : null}
       {/* Repeated */}
