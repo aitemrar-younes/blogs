@@ -53,38 +53,29 @@ function BlogDetail() {
     return (
       <div className="__BlogDetail__">
         <div className="blog_details">
-          <div className="left_side">
-            <h1 className="blog_title"> {blog.title} </h1>
-            <span>Posted on {blog.creation_date}</span>
-            <span>
-                {blog.likes_count}
-                { BlogIsLikedQuery?.data?.liked ? <FaHeart /> : <FaRegHeart /> }
-            </span>
-          </div>
-          <div className="author_profile">
-            <span>
-              {" "}
-              Written by{" "}
-              <Link className="author_cred" to={`/profile/${blog.author.id}/`}>
-                {" "}
-                @{blog.author.first_name + " " + blog.author.last_name}
-              </Link>{" "}
-            </span>
-            <Link to={`/profile/${blog.author.id}/`}>
-              <img
-                className="author_profile_img"
-                src={blog.author.profile_picture}
-                alt="profile"
-              />
-            </Link>
+            <div className="left_side">
+                <h1 className="blog_title"> {blog.title} </h1>
+                <span>Posted on {blog.creation_date}</span>
+                <span>
+                    {blog.likes_count}
+                    { BlogIsLikedQuery?.data?.liked ? <FaHeart /> : <FaRegHeart /> }
+                </span>
+                <Link className="author_profile" to={`/profile/${blog.author.id}/`}>
+                    <img
+                        className="author_profile_img"
+                        src={blog.author.profile_picture}
+                        alt="profile"
+                    />
+                    {blog.author.first_name + " " + blog.author.last_name}
+                </Link>
+            </div>
             {
                 account?.id == blog?.author?.id ? (
-                    <Link to={`/blog/${blog.id}/edit`}>
+                    <Link className='btn' to={`/blog/${blog.id}/edit`}>
                         Edité
                     </Link>
                 ):null
             }
-          </div>
         </div>
         <img className="thumbnail" src={blog.thumbnail} alt="" />
         <p dangerouslySetInnerHTML={{ __html: blog.content }} />

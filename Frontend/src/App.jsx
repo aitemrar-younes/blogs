@@ -12,7 +12,13 @@ import NotFound from './Pages/NotFound/NotFound'
 
 
 function App() {
-  const { account } = useAuth();
+  const { account, loading } = useAuth();
+  if (loading)
+    return (
+      <div>
+        Loading
+      </div>
+    )
   return (
     <div className='__App__'>
       <Navbar />

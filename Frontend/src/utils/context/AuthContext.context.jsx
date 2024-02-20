@@ -5,7 +5,7 @@ export const AuthProvider = ({ children }) => {
   const [forceUpdate, setForceUpdate] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false); // initialy must be false but for testing it might be set to true
   const [account, setAccount] = useState(null); // it will hold data about the user
-  //const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
     /*    
         Here must be a process that checks if there is a token stored in localBrowser and then checks its validity
@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         // Check token validity with the server
         const checkTokenValidity = async () => {
+            setLoading(true)
             const token = localStorage.getItem('token');
             if (token) {
                 // Send a request to the server to validate the token
@@ -51,6 +52,7 @@ export const AuthProvider = ({ children }) => {
                 setIsAuthenticated(false)
                 // setLoading(false);
             }
+            setLoading(false)
         };
     
         checkTokenValidity();
@@ -69,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     };
 
   return (
-    <AuthContext.Provider value={{ login, logout, account, isAuthenticated }}>
+    <AuthContext.Provider value={{ login, logout, account, isAuthenticated, loading }}>
       {children}
     </AuthContext.Provider>
   );

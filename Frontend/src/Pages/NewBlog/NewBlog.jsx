@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '/src/assets/Styles/NewBlog.scss'
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -23,14 +23,35 @@ const NewBlog = () => {
     });
     
     /* set instance for managing form */
-    const {register, handleSubmit, formState:{errors}, control} = useForm({
+    const {register, handleSubmit, formState:{errors}, control, reset} = useForm({
         resolver: yupResolver( blog_id ? updateSchema : newSchema ),
         defaultValues: {
-            title: blog_id ? BlogDetailQuery?.data.title : "",
-            content: blog_id ? BlogDetailQuery?.data.content : "",
+            title: blog_id ? BlogDetailQuery?.data?.title : "",
+            content: blog_id ? BlogDetailQuery?.data?.content : "",
             image: null ,
         }
     })
+    useEffect(()=>{
+        if(BlogDetailQuery.data){
+            const blog = BlogDetailQuery.data
+            reset(
+                {
+                    title: blog ? blog.title : "",
+                    content: blog ? blog.content : "",
+                    image: null
+                }
+            )
+        }
+        else{
+            reset(
+                {
+                    title: "",
+                    content: "",
+                    image: null
+                }
+            )
+        }
+    },[BlogDetailQuery.data, blog_id])
     /* Create */
     //Api mutation
     const createBlogdMutation = useMutation({
@@ -55,6 +76,11 @@ const NewBlog = () => {
     
     return (
         <div className='__NewBlog__'>
+            <h2>
+                {
+                    blog_id ? 'Update blog' : 'New blog'
+                }
+            </h2>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="input_group">
                     <label htmlFor="">Title</label>
